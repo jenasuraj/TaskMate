@@ -2,19 +2,10 @@
 // App.jsx
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TodoList from './pages/todolist'; // adjust path as needed
 import './index.css'
-
-function Home() {
-  const navigate = useNavigate();
-  return (
-    <div>
-      <h1 className='text-4xl font-bold text-blue-600'>Welcome</h1>
-      <button onClick={() => navigate('/todolist')}>Go to Todo List</button>
-    </div>
-  );
-}
+import Home from './components/Home';
 
 
 function App() {
