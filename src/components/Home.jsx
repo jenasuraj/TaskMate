@@ -19,6 +19,12 @@ const Home = () => {
         >
           Go to Todo List
         </button>
+        <button
+          onClick={() => navigate('/extra')}
+          className="mt-4 px-8 py-3 bg-blue-700 text-white text-lg rounded-full shadow-md hover:bg-blue-800 transition-all"
+        >
+          Go to Extra
+        </button>
       </section>
 
       {/* Section 2 - Benefits */}
