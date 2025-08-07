@@ -23,7 +23,10 @@ const Home = () => {
   setFinalData={setFinalData}
    toBeUpdated={toBeUpdated}
     formData={formData}
-     setFormData={setFormData}/>
+     setFormData={setFormData}
+        setToBeUpdated={setToBeUpdated}
+     />
+  
  ):(
   <Dashboard
    finalData={finalData} 

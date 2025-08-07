@@ -14,11 +14,27 @@ const Dashboard = ({finalData,setFinalData,setToBeUpdated,setFormData,setDashboa
       })
     }
 
+    const dataFormatter = (date)=> {  // 2025-10-10 5:05 PM to 2025-12-12T17:50
+    console.log("Came to date formatter !")    
+    const newArrDate = date.split(' ')
+    let left = newArrDate[0]
+    let right = newArrDate[1]
+    const rightArr = right.split(':')
+    if(newArrDate[2] == 'PM'){
+        rightArr[0] = parseInt(rightArr[0])+12
+    }
+    const rigthSection = rightArr.join(':') //15:05
+    const final = left + "T" +rigthSection
+    console.log("final is",final)
+    return final
+    }
+
     const updateFunc = (index)=>{
+     console.log("update button clicked !")
      setToBeUpdated(index)
      setFormData({
         name:finalData[index].name,
-        date:finalData[index].date,
+        date:dataFormatter(finalData[index].date),
         description:finalData[index].description,
         title:finalData[index].title
      })
