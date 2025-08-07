@@ -1,4 +1,3 @@
-
   const checkAmPm = (check)=>{
     const checkArr = check.split(":")
     if (checkArr[0]<12) { return "AM" }
