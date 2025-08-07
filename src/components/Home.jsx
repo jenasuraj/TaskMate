@@ -7,14 +7,30 @@ import Dashboard from './Dashboard';
 const Home = () => {
   const [dashboard,setDashboard] = useState(false)
   const [finalData,setFinalData] = useState([])
+  const [toBeUpdated,setToBeUpdated] = useState(null)
+  const [formData,setFormData] = useState({
+        name:'',title:'',description:'',date:''
+      })
 
   return (
 <main className=" gap-5 bg-gradient-to-b from-stone-900 to-green-900 w-full min-h-screen flex items-center justify-center roboto-condensed-suraj p-6 flex-col">
- <Static setDashboard={setDashboard} dashboard={dashboard}/>
+ <Static setDashboard={setDashboard}
+  dashboard={dashboard}/>
+
  {!dashboard ? (
-  <FormPage setDashboard={setDashboard} setFinalData={setFinalData}/>
+  <FormPage 
+  setDashboard={setDashboard} 
+  setFinalData={setFinalData}
+   toBeUpdated={toBeUpdated}
+    formData={formData}
+     setFormData={setFormData}/>
  ):(
-  <Dashboard finalData={finalData} />
+  <Dashboard
+   finalData={finalData} 
+   setFinalData={setFinalData}
+    setToBeUpdated={setToBeUpdated}
+     setFormData={setFormData}
+      setDashboard={setDashboard}/>
  )}
 </main>
   ) 
