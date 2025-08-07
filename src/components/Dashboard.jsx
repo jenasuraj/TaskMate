@@ -20,7 +20,7 @@ const Dashboard = ({finalData}) => {
     <p className='text-left'>{item.title}</p>
 
     <p className='font-semibold text-right'>Description:</p>
-    <p className='text-left w-60 h-auto '>{item.description}</p>
+    <p className='text-left   '>{item.description}</p>
 
     <p className='font-semibold text-right'>Date:</p>
     <p className='text-left'>{item.date}</p>
