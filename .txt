@@ -1,8 +1,142 @@
+import React from 'react'
+import { useState } from 'react'
 
+const FormPage = ({setDashboard,setFinalData,formData,setFormData,toBeUpdated,setToBeUpdated}) => {
 
-2025-02-10 5:50 PM
+ const [error,setError] = useState('')  
+ let date = new Date();
+ //console.log(`Date: ${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`)
+ 
+ const checkAmPm = (check)=>{
+    const checkArr = check.split(":")
+    if (checkArr[0]<12) { return "AM" }
+    else { return "PM" }
+  }
 
-to
+  const timeFixer = (time)=>{
+    let final = null
+    const actual = time.split(":")
+    const timeSlice = parseInt(actual[0])
+    if(timeSlice>12) 
+      { 
+        final = timeSlice-12 
+        const mostFinal = String(final)+":"+actual[1] 
+        return mostFinal 
+      }
+      else{
+        return time
+      }
+  } 
 
-  2025-12-12T17:50
+  const checkDate = (wholeDate)=>{ //2025-08-09 y/m/d
+  const date = new Date()
+  console.log("in checkdate")
+  const splitted = wholeDate.split('-')
+  console.log("splitted is",splitted)
+  if(splitted[0]<date.getFullYear() || 
+    splitted[1]<date.getMonth()+1 && splitted[0]<date.getFullYear() ||
+    splitted[2]<date.getDate() && splitted[0]<date.getFullYear() && splitted[1]<date.getMonth()+1){
+    console.log("data is too old so returning !")  
+    return true
+  }
+  console.log("date is either today or future so safe !")
+  return false
+  }
 
+  const isToday = (data)=>{ //2025-08-09 y/m/d
+  const splitted = data.split('-')
+  if(date.getFullYear()-splitted[0] == 0 && date.getMonth()-splitted[1]==0 && date.getDate()-splitted[2]==0){
+    return true
+  }
+  else{
+    return false
+  }
+  }
+
+  const checkTime = (time)=>{ //2025-08-09  and   15:29
+   console.log("in checktime and time is",time)
+    if(checkDate(time[0])){ //this stands year and month and day is past
+     console.log("says the date is too old so returning false")
+      return false
+   }
+  else if(isToday(time[0])){
+    console.log("says the date is today")
+     const clockTime = time[1].split(':') //15:29
+     if(date.getHours()>clockTime[0])
+     { console.log("even though the date is today but it has passed so false")
+      return false
+     }
+     else{
+      console.log("wow even though the date is of today it hasnt pass so returning true")
+      return true
+     }
+   }
+   else{
+    console.log("the date tends to future so returning true")
+    return true
+   } 
+  }
+
+  const RemoveT = (data) =>{ // 2025-08-09T15:29 ->y/m/d
+    console.log("in destination 1 and data is",data.date) //2024-10-09T17:10
+    const tobe = data.date
+    const updated = tobe.split('T')  //2025-08-09  and   15:29
+    //checkDate(updated[0])
+    if(!checkTime(updated)){
+      console.log("finally checktime is false so error message and return")
+     setError("date issue")
+     return
+    }
+    else{
+    console.log("the date is solid so dont do anything and go ahead")  
+    updated[1] = timeFixer(updated[1])+" "+checkAmPm(updated[1])
+    const final = updated.join(' ') //2025-02-10 5:50 PM ->y/m/d
+    const toBeSent = {...data,date:final}
+    //But in React or good JavaScript practices, we do not directly mutate objects. Instead, 
+    // we use the spread operator to copy the object and update its values immutably.
+    return toBeSent
+    }
+
+  }
+
+  const handleChange = (e)=>{
+    const {name,value} = e.target
+    setFormData(prev=>({...prev,[name]:value}))
+  }
+
+  const handleSubmit = (e)=>{
+  e.preventDefault()  
+  if(!formData.name || !formData.description || !formData.title || !formData.date)
+    { setError('Fill all input fields')
+      return
+     }
+  else{
+    if(toBeUpdated!=null){
+        setFinalData(prev=>{
+            const arr = [...prev]
+            arr[toBeUpdated] = RemoveT(formData)
+            return arr
+        })
+    }
+    else { setFinalData(prev=>[...prev,RemoveT(formData)]) }
+    setFormData({name:'',description:'',date:'',title:''})
+    setDashboard(true)
+    setToBeUpdated(null)
+  }
+  }
+
+  return (
+     <section>
+        <form className='flex flex-col gap-5 border border-gray-600 p-6 rounded-2xl' onSubmit={handleSubmit}>
+          <input name='name' type="text"  placeholder='Enter Name' value={formData.name} className='bg-white py-3 px-10 ' onChange={handleChange}/>
+          <input name='title' type="text" placeholder='Enter title' value={formData.title} className='bg-white py-3 px-10 ' onChange={handleChange}/>
+          <input name='description' type="text" placeholder='Enter Description' value={formData.description} className='bg-white py-3 px-10' onChange={handleChange}/>
+          <input name='date' type="datetime-local"  className='bg-white py-3 px-10 ' value={formData.date} onChange={handleChange}/>
+          <button className='bg-black text-white border border-gray-500 py-4 px-10 cursor-pointer' type='submit'>{toBeUpdated != null ? 'Update': 'Submit'}</button>
+          {error && <p className='text-red-500 text-center'>Error: {error}</p>}
+        </form>
+      </section>
+  )
+}
+
+export default FormPage

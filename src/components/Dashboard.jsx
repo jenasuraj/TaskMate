@@ -4,7 +4,6 @@ import { RxUpdate } from "react-icons/rx";
 import { BsStopwatch } from "react-icons/bs";
 
 const Dashboard = ({finalData,setFinalData,setToBeUpdated,setFormData,setDashboard}) => {
-
     const deleteFunc = (index)=>
     {
       setFinalData(prev =>{
