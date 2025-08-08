@@ -13,7 +13,7 @@ const Static = ({setDashboard,dashboard,finalData,setFinalData,tempArr,setTempAr
 
   const handleSubmit = ()=>{
   const searchedData = inputRef.current.value
-  if(searchedData.trim()!="" && !filterTriggered){
+  if(searchedData.trim()!="" && !filterTriggered && finalData.length!=0){
     setFilterTriggered(true)
     setTempArr(finalData)
     setFinalData(prev=>{
@@ -21,7 +21,7 @@ const Static = ({setDashboard,dashboard,finalData,setFinalData,tempArr,setTempAr
     const filtered = arr.filter( (item)=>item.name.toLowerCase().includes(searchedData.toLowerCase()))
     return filtered
     })}
-    
+
   if(filterTriggered){
   setFinalData(tempArr)
   inputRef.current.value = ""
