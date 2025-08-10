@@ -2,8 +2,14 @@ import React from 'react'
 import { BiTrashAlt } from "react-icons/bi";
 import { RxUpdate } from "react-icons/rx";
 import { BsStopwatch } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
+
 
 const Dashboard = ({finalData,setFinalData,setToBeUpdated,setFormData,setDashboard}) => {
+
+     const navigate = useNavigate('') 
+
+
     const deleteFunc = (index)=>
     {
       setFinalData(prev =>{
@@ -63,7 +69,8 @@ const Dashboard = ({finalData,setFinalData,setToBeUpdated,setFormData,setDashboa
   <div className='flex flex-row lg:flex-col gap-5 justify-center  items-center'>
     <button onClick={()=>deleteFunc(index)} className='cursor-pointer'><BiTrashAlt color='red' size={25}/></button>
     <button onClick={()=>updateFunc(index)}  className='cursor-pointer'><RxUpdate color='green' size={25}/></button>
-    <button  className='cursor-pointer'><BsStopwatch color='blue' size={25}/></button>
+    <button   onClick={()=>navigate("/secret")}   className='cursor-pointer text-black'><BsStopwatch color='blue' size={25}/> </button>
+
   </div>
 </div>
     )

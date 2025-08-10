@@ -6,8 +6,9 @@ import { useRef } from 'react';
 import { MdOutlineClear } from "react-icons/md";
 import { useState } from 'react';
 
+
 const Static = ({setDashboard,dashboard,finalData,setFinalData,tempArr,setTempArr}) => {
-  
+ 
   const inputRef = useRef(null)
   const [filterTriggered,setFilterTriggered] = useState(false)
 
@@ -32,7 +33,7 @@ const Static = ({setDashboard,dashboard,finalData,setFinalData,tempArr,setTempAr
   return (
     <>
 <header className='text-white flex flex-col text-center items-center gap-5 '>
-   <h1 className='text-4xl flex gap-2 items-center justify-center'>Task Tracker <SiPerplexity/></h1>
+   <h1 className='text-4xl cursor-pointer flex gap-2 items-center justify-center' >Task Tracker <SiPerplexity/></h1>
    <p className='text-sm p-2'>Hey there i am suraj kumar jena and i have made this supremacy all by myself ! No ai tools, no chatGPT !</p>
    {dashboard && (
     <div className='flex justify-center  '>
